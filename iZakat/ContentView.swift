@@ -28,11 +28,13 @@ struct ContentView: View {
                 
                 
             }
+            
             Label {
                 Text("Gender")
             } icon: {
                 Image(systemName: "figure.stand.dress.line.vertical.figure")
             }
+            
             
         }
         .padding(.horizontal, 20)
