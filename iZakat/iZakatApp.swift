@@ -11,7 +11,7 @@ import SwiftUI
 struct iZakatApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ResultScreen()
         }
     }
 }

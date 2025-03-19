@@ -30,7 +30,7 @@ struct ContentView: View {
             }
             
             Label {
-                Text("Gender")
+                Text("hahahhahah")
             } icon: {
                 Image(systemName: "figure.stand.dress.line.vertical.figure")
             }
