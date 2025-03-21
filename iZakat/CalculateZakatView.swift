@@ -71,7 +71,7 @@ struct CalculateZakatView: View {
                                 .background(.greenFootnote)
                                 .cornerRadius(12)
                                 .offset(y:-20)
-
+                            
                             Spacer()
                             Button {
                                 isNavigating = true
@@ -105,7 +105,7 @@ func calculateZakatStatus(saving: Int, date: Date) -> Bool {
     let calendar = Calendar.current
     
     if(saving < nilaiEmas) {
-       return false
+        return false
     }
     let difference = calendar.dateComponents([.year], from: date, to: Date())
     if let years = difference.year, years < 1 {
