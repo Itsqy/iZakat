@@ -12,21 +12,36 @@ let backgroundGradient = LinearGradient(gradient: Gradient(colors: [.darkGradien
 
 
 
-struct ResultScreen: View {
+struct SuccessResultScreen: View {
     
-    @State var animatedCard : Bool = false
+    @State var transitionScreen : Bool = false
     var body: some View {
         
         VStack{
             
             ZStack{
                 
-                if animatedCard {
+                if transitionScreen {
                     Circle()
                         .fill(backgroundGradient)
                         .frame(width: UIScreen.main.bounds.width * 2, height: UIScreen.main.bounds.height * 2)
                         .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height - UIScreen.main.bounds.height*0.9)
-                        .transition(.move(edge: .top))
+                        
+                    
+                    Image(.ombakAtas)
+                        .transition(.move(edge: .trailing))
+                        .frame(minWidth: 100)
+                        .position(CGPoint(x: 180, y: 700))
+                    
+                    Image(.ombakTengah)
+                        .frame(minWidth: 100)
+                        .position(CGPoint(x: 180, y: 750))
+                        .transition(.move(edge: .leading))
+                    Image(.ombakBawah)
+                        .frame(minWidth: 100)
+                        .position(CGPoint(x: 180, y: 800))
+                        .transition(.move(edge: .trailing))
+                    
                     
                     Image("LogoApp")
                         .position(CGPoint(x: 200, y: 280))
@@ -41,45 +56,39 @@ struct ResultScreen: View {
                             .padding(.bottom,10)
                         Text("Zakat yang harus kamu bayar ")
                             .font(.caption)
-                            .fontWeight(.bold)
+                            .fontWeight(.regular)
                         Text("Rp. 250.000")
-                            .font(.title2)
+                            .font(.largeTitle)
                             .fontWeight(.bold)
                     }
-                    .frame(height:300)
-                    .background(Color.white)
+                    .frame(height:250)
+                    .background(.backgroundTintGreen)
                     
                     .cornerRadius(20)
                     .shadow(radius: 5)
-                    .transition(.move(edge : .leading))
                     .overlay(
                         ZStack(alignment: .bottom) {
                             RoundedRectangle(cornerRadius: 20) // 👈 Keeps
-                                .stroke(Color.white, lineWidth: 6)
+                                .stroke(.backgroundTintGreen, lineWidth: 6)
                             
                             VStack {
-                                Text("Apa Status Zakatmu?")
-                                    .font(.footnote)
-                                    .fontWeight(.bold)
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 32)
-                                    .background(.greenFootnote)
-                                    .cornerRadius(12)
-                                    .offset(y:-20)
+                               
                                 
                                 Spacer()
                                 Button {
                                     //                                    isNavigating = true
                                 } label: {
-                                    Text("Hitung")
+                                    Text("Hitung Kembali")
                                         .fontWeight(.semibold)
                                         .frame(maxWidth: .infinity)
                                         .padding(8)
                                 }
+                                .clipShape(RoundedRectangle(cornerRadius: 40))
                                 .buttonStyle(.borderedProminent)
                                 .tint(.darkGreenButton)
                                 .padding(.horizontal, 24)
                                 .offset(y: 20)// 👈 Moves it outside container
+                                
                             }
                         }
                     )
@@ -88,7 +97,23 @@ struct ResultScreen: View {
                     
                     
                     
-                    
+                    //                    VStack{
+                    //                        Image(.ombakAtas)
+                    //                            .transition(.move(edge: .trailing))
+                    //                            .frame(minWidth: 100)
+                    //                            .position(CGPoint(x: 180, y: 680))
+                    //
+                    //                        Image(.ombakTengah)
+                    //                            .frame(minWidth: 100)
+                    //                            .position(CGPoint(x: 180, y: 460))
+                    //                            .transition(.move(edge: .top))
+                    //                        Image(.ombakBawah)
+                    //                            .frame(minWidth: 100)
+                    //                            .position(CGPoint(x: 180, y: 250))
+                    //                            .transition(.move(edge: .trailing))
+                    //
+                    //
+                    //                    }.transition(.move(edge: .trailing))
                     
                     
                     
@@ -96,19 +121,7 @@ struct ResultScreen: View {
                 
                 //
                 
-                VStack{
-                    Image(.ombakAtas)
-                        .frame(minWidth: 100)
-                        .position(CGPoint(x: 200, y: 800))
-                    Image(.ombakTengah)
-                        .frame(minWidth: 100)
-                        .position(CGPoint(x: 200, y: 540))
-                    Image(.ombakBawah)
-                        .frame(minWidth: 100)
-                        .position(CGPoint(x: 200, y: 280))
-                    
-                    
-                }
+                
                 
                 HStack{
                     
@@ -172,8 +185,8 @@ struct ResultScreen: View {
         
         .ignoresSafeArea(.all)
         .onAppear() {
-            withAnimation(.interpolatingSpring(stiffness: 70, damping: 10)) {
-                animatedCard = true
+            withAnimation(.interpolatingSpring(stiffness: 100, damping: 10)) {
+                transitionScreen = true
             }
         }
         .background(.backgroundBaseGreen)
