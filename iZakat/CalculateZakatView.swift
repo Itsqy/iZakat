@@ -30,90 +30,106 @@ struct CalculateZakatView: View {
                         )
                         .ignoresSafeArea()
                     Spacer()
-                }
-                VStack(alignment: .leading) {
-                    Spacer()
-                        .frame(height: 24)
-                    Text("Tabunganku")
-                        .fontWeight(.bold)
-                    TextField("Rp10.000", value: $savingTotal, format: .number)
-                        .padding(12)
-                        .background(.gray.opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    Spacer()
-                        .frame(height: 24)
-                    Text("Start menabung?")
-                        .fontWeight(.bold)
-                    DatePicker(
-                        "",
-                        selection: $date,
-                        displayedComponents: [.date]
-                    )
-                    .labelsHidden()
-                    Spacer()
-                        .frame(height: 32)
-                    
-                }
-                .padding()
-                .background(.baseGray)
-                .cornerRadius(20)
-                .overlay(
-                    ZStack(alignment: .bottom) {
-                        RoundedRectangle(cornerRadius: 20) // 👈 Keeps
-                            .stroke(Color.white, lineWidth: 6)
+                    Image("IlustrasiMasjid")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .offset(y: 20)
                         
-                        VStack {
-                            Text("Apa Status Zakatmu?")
-                                .font(.footnote)
-                                .fontWeight(.bold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 32)
-                                .background(.greenFootnote)
-                                .cornerRadius(12)
-                                .offset(y:-20)
-                            
-                            Spacer()
-                            Button {
-                                isNavigating = true
-                            } label: {
-                                Text("Hitung")
-                                    .fontWeight(.semibold)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(8)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .tint(.darkGreenButton)
-                            .padding(.horizontal, 24)
-                            .offset(y: 20)// 👈 Moves it outside container
-                        }
+                }
+                .ignoresSafeArea()
+                VStack {
+                    Spacer()
+                    VStack(alignment: .leading) {
+                        Spacer()
+                            .frame(height: 24)
+                        Text("Tabunganku")
+                            .fontWeight(.bold)
+                        TextField("Rp10.000", value: $savingTotal, format: .number)
+                            .padding(12)
+                            .background(.gray.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                        Spacer()
+                            .frame(height: 24)
+                        Text("Start menabung?")
+                            .fontWeight(.bold)
+                        DatePicker(
+                            "",
+                            selection: $date,
+                            displayedComponents: [.date]
+                        )
+                        .labelsHidden()
+                        Spacer()
+                            .frame(height: 32)
+                        
                     }
-                )
-                .shadow(color: Color.black.opacity(0.1),radius: 10)
-                .padding(24)
+                    .padding()
+                    .background(.baseGray)
+                    .cornerRadius(20)
+                    .overlay(
+                        ZStack(alignment: .bottom) {
+                            RoundedRectangle(cornerRadius: 20) // 👈 Keeps
+                                .stroke(Color.white, lineWidth: 6)
+                            
+                            VStack {
+                                Text("Apa Status Zakatmu?")
+                                    .font(.footnote)
+                                    .fontWeight(.bold)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 32)
+                                    .background(.greenFootnote)
+                                    .cornerRadius(12)
+                                    .offset(y:-20)
+                                
+                                Spacer()
+                                Button {
+                                    calculateZakatStatus(saving: savingTotal, date: date)
+                                } label: {
+                                    Text("Hitung")
+                                        .fontWeight(.semibold)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(8)
+                                }
+                                .buttonStyle(.borderedProminent)
+                                .tint(.darkGreenButton)
+                                .padding(.horizontal, 24)
+                                .offset(y: 20)// 👈 Moves it outside container
+                            }
+                        }
+                    )
+                    .shadow(color: Color.black.opacity(0.1),radius: 10)
+                    .padding(24)
+                    Spacer()
+                    Spacer()
+                }
                 
-                NavigationLink("", destination: calculateZakatStatus(saving: savingTotal, date: date) ? Text("Wajib Zakat") : Text("Belum Wajib Zakat"), isActive: $isNavigating)
+//                NavigationLink("", destination: calculateZakatStatus(saving: savingTotal, date: date) ? Text("Wajib Zakat") : Text("Belum Wajib Zakat"), isActive: $isNavigating)
+                
+                    
             }
             .background(.backgroundBaseGreen)
+            .navigationTitle("IZakat")
+            .navigationBarTitleDisplayMode(.inline)
         }
         
         
     }
-}
-
-func calculateZakatStatus(saving: Int, date: Date) -> Bool {
-    let nilaiEmas = 79815000
-    let calendar = Calendar.current
     
-    if(saving < nilaiEmas) {
-        return false
+    func calculateZakatStatus(saving: Int, date: Date) -> ZakatResult {
+        let nilaiEmas = 79815000
+        let calendar = Calendar.current
+        
+        if(saving < nilaiEmas) {
+            return ZakatResult(zakatStatus: .belumWajib, reason: "Belum mencapai nilai nisab yaitu \(nilaiEmas)")
+        }
+        let difference = calendar.dateComponents([.year], from: date, to: Date())
+        if let years = difference.year, years < 1 {
+            return ZakatResult(zakatStatus: .wajib, reason: "Belum mencapai batas haul")
+        }
+        
+        var zakatValue = Int(Double(saving) * (2.5*100.0))
+        return ZakatResult(zakatStatus: .wajib, reason: "\(zakatValue)")
     }
-    let difference = calendar.dateComponents([.year], from: date, to: Date())
-    if let years = difference.year, years < 1 {
-        print(years)
-        return false
-    }
-    
-    return true
 }
 
 #Preview {
