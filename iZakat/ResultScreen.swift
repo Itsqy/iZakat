@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-let backgroundGradient = LinearGradient(gradient: Gradient(colors: [.lightGradientBase, .darkGradientBase]), startPoint: UnitPoint(x: 0.5, y: 0.4), endPoint: UnitPoint(x: 0.5, y: 0.9))
+let backgroundGradient = LinearGradient(gradient: Gradient(colors: [.darkGradientBase, .lightGradientBase]), startPoint: UnitPoint(x: 0.5, y: 0.8), endPoint: UnitPoint(x: 0.5, y: 0.9))
 
 
 
@@ -30,8 +30,8 @@ struct ResultScreen: View {
                     
                     Image("LogoApp")
                         .position(CGPoint(x: 200, y: 280))
-                        
-                        
+                    
+                    
                     
                     VStack(alignment: .center){
                         Text("WAJIB ZAKAT")
@@ -69,7 +69,7 @@ struct ResultScreen: View {
                                 
                                 Spacer()
                                 Button {
-//                                    isNavigating = true
+                                    //                                    isNavigating = true
                                 } label: {
                                     Text("Hitung")
                                         .fontWeight(.semibold)
@@ -87,69 +87,88 @@ struct ResultScreen: View {
                     .padding(24)
                     
                     
-
+                    
                     
                     
                     
                     
                 }
- 
-//
-               
+                
+                //
+                
+                VStack{
+                    Image(.ombakAtas)
+                        .frame(minWidth: 100)
+                        .position(CGPoint(x: 200, y: 800))
+                    Image(.ombakTengah)
+                        .frame(minWidth: 100)
+                        .position(CGPoint(x: 200, y: 540))
+                    Image(.ombakBawah)
+                        .frame(minWidth: 100)
+                        .position(CGPoint(x: 200, y: 280))
                     
-                    HStack{
-                        
-                        VStack(alignment:.center){
-                            Text("Nishab?")
-                                .font(.footnote)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.center)
-                                .padding(.vertical,10)
-                            Text("Nishab adalah  batas minimum kepemilikan harta yang wajib dizakati.untuk emas, nishabnya setara dengan 85 gram emas murni")
-                                .font(.custom("",size: 8))
-                                .frame(width: UIScreen.main.bounds.width/3,height: UIScreen.main.bounds.height * 1/10,
-                                       alignment: .center)
-                                .multilineTextAlignment(.center)
-                                .padding([.horizontal,.bottom],10)
-                            
-                        }
-                        .background(Color.white)
-                        .cornerRadius(8)
-                        .padding(.horizontal,10)
-                        .shadow(radius: 3)
-                        
-                        VStack(alignment:.center){
-                            Text("Haul?")
-                                .font(.footnote)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.center)
-                                .padding(.vertical,10)
-                            Text("Haul adalah batas waktu yang menentukan apakah harta yang kita miliki sudah mencapai satu tahun kepemilikan dalam kalender Hijriyah, yang merupakan salah satu syarat agar sebuah harta diwajibkan untuk dizakati. Jika harta tersebut telah mencapai nishab dan haul, maka wajib bagi pemilik harta untuk mengeluarkan zakatnya.")
-                                .font(.custom("",size: 8))
-                                .frame(width: UIScreen.main.bounds.width/3,height: UIScreen.main.bounds.height * 1/10,
-                                       alignment: .center)
-                                .multilineTextAlignment(.center)
-                                .padding([.horizontal,.bottom],10)
-                            
-                        }
-                        .background(Color.white)
-                        .cornerRadius(8)
-                        .padding(.horizontal,10)
-                        .shadow(radius: 3)
-                        
+                    
+                }
+                
+                HStack{
+                    
+                    VStack(alignment:.center){
+                        Text("Nishab?")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .padding(.vertical,10)
+                        Text("Nishab adalah  batas minimum kepemilikan harta yang wajib dizakati.untuk emas, nishabnya setara dengan 85 gram emas murni")
+                            .font(.custom("",size: 8))
+                            .frame(width: UIScreen.main.bounds.width/3,height: UIScreen.main.bounds.height * 1/10,
+                                   alignment: .center)
+                            .multilineTextAlignment(.center)
+                            .padding([.horizontal,.bottom],10)
                         
                     }
-                    .padding(.horizontal,5)
-                    .position(x: UIScreen.main.bounds.width*1/2, y: UIScreen.main.bounds.height*8/10)
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    .padding(.horizontal,10)
+                    .shadow(radius: 3)
+                    
+                    VStack(alignment:.center){
+                        Text("Haul?")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .padding(.vertical,10)
+                        Text("Haul adalah batas waktu yang menentukan apakah harta yang kita miliki sudah mencapai satu tahun kepemilikan dalam kalender Hijriyah, yang merupakan salah satu syarat agar sebuah harta diwajibkan untuk dizakati. Jika harta tersebut telah mencapai nishab dan haul, maka wajib bagi pemilik harta untuk mengeluarkan zakatnya.")
+                            .font(.custom("",size: 8))
+                            .frame(width: UIScreen.main.bounds.width/3,height: UIScreen.main.bounds.height * 1/10,
+                                   alignment: .center)
+                            .multilineTextAlignment(.center)
+                            .padding([.horizontal,.bottom],10)
+                        
+                    }
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    .padding(.horizontal,10)
+                    .shadow(radius: 3)
+                    
                     
                 }
+                .padding(.horizontal,5)
+                .position(x: UIScreen.main.bounds.width*1/2, y: UIScreen.main.bounds.height*8/10)
+                
+                
+                
                 
             }
             
             
             
             
-            
+        }
+        
+        
+        
+        
+        
         
         .ignoresSafeArea(.all)
         .onAppear() {
@@ -165,9 +184,7 @@ struct ResultScreen: View {
         
     }
     
-    func menyayi(){
-        
-    }
+    
 }
 
 
